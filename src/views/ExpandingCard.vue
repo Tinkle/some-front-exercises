@@ -12,12 +12,12 @@ const images: { id: number; src: string }[] = imageIds.map((id) => ({
     <div class="h-2/5 w-1/2 flex flex-row gap-2 rounded-3xl p-5 shadow-lg">
       <div
         v-for="image of images"
+        :key="image.id"
         :class="{
           'basis-7/12': selectId === image.id,
           'basis-1/12': selectId !== image.id,
         }"
         class="transition-all delay-75"
-        :key="image.id"
         @click="selectId = image.id"
       >
         <img
@@ -29,9 +29,3 @@ const images: { id: number; src: string }[] = imageIds.map((id) => ({
     </div>
   </div>
 </template>
-
-<style scoped>
-.user-drag {
-  -webkit-user-drag: none;
-}
-</style>
