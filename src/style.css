@@ -72,6 +72,8 @@ li {
 
 .user-drag {
   -webkit-user-drag: none;
+  -ms-user-drag: none;
+  -moz-user-drag: none;
 }
 
 #app {
