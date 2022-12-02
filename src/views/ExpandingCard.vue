@@ -8,24 +8,21 @@ const images: { id: number; src: string }[] = imageIds.map((id) => ({
 </script>
 
 <template>
-  <div class="container flex justify-center items-center h-screen">
-    <div class="h-2/5 w-1/2 flex flex-row gap-2 rounded-3xl p-5 shadow-lg">
-      <div
-        v-for="image of images"
-        :key="image.id"
-        :class="{
-          'basis-7/12': selectId === image.id,
-          'basis-1/12': selectId !== image.id,
-        }"
-        class="transition-all delay-75"
-        @click="selectId = image.id"
-      >
-        <img
-          class="object-cover h-full w-full rounded-3xl user-drag"
-          :src="image.src"
-          alt=""
-        />
-      </div>
+  <div
+    class="h-4/6 max-h-128 max-w-5xl md:w-12 flex flex-row gap-2 rounded-3xl p-5 shadow-2xl"
+  >
+    <div
+      v-for="image of images"
+      :key="image.id"
+      :class="`basis-${selectId === image.id ? '7' : '1'}/12`"
+      class="transition-all delay-75"
+      @click="selectId = image.id"
+    >
+      <img
+        class="object-cover h-full w-full rounded-3xl user-drag"
+        :src="image.src"
+        alt=""
+      />
     </div>
   </div>
 </template>

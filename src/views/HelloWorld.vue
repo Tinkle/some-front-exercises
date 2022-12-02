@@ -1,38 +1,48 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+const router = useRouter()
+const currentRoute = computed(() => router.currentRoute.value)
+const routeMeta = computed<RouterMeta>(() => currentRoute.value.meta)
 
-defineProps<{ msg?: string }>()
-
-const count = ref(0)
+const toBack = () => router.push({ name: 'Index' })
 </script>
 
 <template>
-  <h1>{{ msg || 'Vite' }}</h1>
-
-  <div class="card">
-    <button type="button" @click="count++">count is {{ count }}</button>
-    <p>
-      Edit
-      <code>components/HelloWorld.vue</code> to test HMR
-    </p>
+  <div class="container flex flex-col h-screen font-medium">
+    <div class="h-30 bg-slate-100 p-8">
+      <span class="text-3xl text-lime-700">{{ currentRoute.name }}</span>
+    </div>
+    <div class="flex-center grow">
+      <router-view />
+    </div>
+    <div class="flex justify-center h-40 bg-slate-100">
+      <div>
+        <button
+          class="btn bg-transparent active:bg-blue-500 text-blue-700 active:text-white border border-blue-500 m-6"
+          @click="toBack"
+        >
+          Back
+        </button>
+        <button
+          class="btn bg-indigo-500 active:bg-indigo-600 text-white m-6"
+          v-if="!!routeMeta.prevName"
+          @click="router.push({ name: routeMeta.prevName })"
+        >
+          Prev
+        </button>
+        <button
+          class="btn bg-emerald-500 active:bg-emerald-600 text-white m-6"
+          v-if="!!routeMeta.nextName"
+          @click="router.push({ name: routeMeta.nextName })"
+        >
+          Next
+        </button>
+      </div>
+    </div>
   </div>
-
-  <p>
-    Check out
-    <a href="https://vuejs.org/guide/quick-start.html#local" target="_blank"
-      >create-vue</a
-    >, the official Vue + Vite starter
-  </p>
-  <p>
-    Install
-    <a href="https://github.com/johnsoncodehk/volar" target="_blank">Volar</a>
-    in your IDE for a better DX
-  </p>
-  <p class="read-the-docs">Click on the Vite and Vue logos to learn more</p>
 </template>
 
 <style lang="scss" scoped>
-.read-the-docs {
-  color: #888;
+.btn {
+  @apply rounded-md px-6 py-2;
 }
 </style>
