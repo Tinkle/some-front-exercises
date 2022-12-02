@@ -14,8 +14,8 @@ const images: { id: number; src: string }[] = imageIds.map((id) => ({
     <div
       v-for="image of images"
       :key="image.id"
-      :class="`basis-${selectId === image.id ? '7' : '1'}/12`"
-      class="transition-all delay-75"
+      :class="{ 'basis-7/12': selectId === image.id }"
+      class="transition-all delay-75 basis-1/12"
       @click="selectId = image.id"
     >
       <img
